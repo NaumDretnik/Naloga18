@@ -108,7 +108,42 @@ class DeletedMessagesHandler(BaseHandler):
         return self.render_template("deletedmessages.html", params)
 
 
+class SingleDeletedMessageHandler(BaseHandler):
+    def get(self, message_id):
+        message = Message.get_by_id(int(message_id))
+        params = {
+            "message": message
+        }
+        return self.render_template("message_single_deleted.html", params)
 
+
+class MessageRestoreHandler(BaseHandler):
+    def get(self, message_id):
+        message = Message.get_by_id(int(message_id))
+        params = {
+            "message": message
+        }
+        return self.render_template("message_restore.html", params)
+
+    def post(self, message_id):
+        message = Message.get_by_id(int(message_id))
+        message.deleted = False
+        message.put()
+        return self.redirect("/messages")
+
+
+class MessageDeletePermanentlyHandler(BaseHandler):
+    def get(self, message_id):
+        message = Message.get_by_id(int(message_id))
+        params = {
+            "message": message
+        }
+        return self.render_template("delete_message_permanently.html", params)
+
+    def post(self, message_id):
+        message = Message.get_by_id(int(message_id))
+        message.key.delete()
+        return self.render_template("message_deleted_permanently.html")
 
 app = webapp2.WSGIApplication([
         webapp2.Route('/', MainHandler),
@@ -119,4 +154,7 @@ app = webapp2.WSGIApplication([
         webapp2.Route('/message-edit-<message_id:\d+>', MessageEditHandler),
         webapp2.Route('/message-delete-<message_id:\d+>', MessageDeleteHandler),
         webapp2.Route('/deleted-messages', DeletedMessagesHandler),
+        webapp2.Route('/deleted-<message_id:\d+>', SingleDeletedMessageHandler),
+        webapp2.Route('/message-deleted-restore-<message_id:\d+>', MessageRestoreHandler),
+        webapp2.Route('/message-deleted-delete-<message_id:\d+>', MessageDeletePermanentlyHandler),
 ], debug=True)

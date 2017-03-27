@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Restore message{% endblock %}
+
+{% block vsebina %}
+<div class="alert alert-info" role="alert">
+    <form method="post" action="/message-deleted-restore-{{ message.key.id() }}">
+        <strong>Are you sure you want to restore your message?</strong>
+        <button type="submit" class="btn btn-info">Restore it!</button>
+    </form>
+</div>
+{% endblock %}

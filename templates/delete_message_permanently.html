@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Delete message permanently{% endblock %}
+
+{% block vsebina %}
+<div class="alert alert-danger" role="alert">
+    <form method="post" action="/message-deleted-delete-{{ message.key.id() }}">
+        <strong>Are you sure you want to permanently delete your message?</strong>
+        <button type="submit" class="btn btn-danger">Delete it!</button>
+    </form>
+</div>
+{% endblock %}
