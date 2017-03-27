@@ -6,9 +6,12 @@
 {% for message in messages %}
 <div class="media">
   <div class="media-body">
-    <h4 class="media-heading">{{ message.name|striptags }} at {{ message.email|striptags }}</h4>
-    <p>{{ message.content|striptags }} | {{ message.timestamp|striptags }}</p>
+    <h4 class="media-heading">{{ message.name }} ({{ message.email }}) <a href="/{{ message.key.id() }}" class="btn btn-primary">More</a></h4>
+    <p>{{ message.content }} | {{ message.timestamp }}</p>
   </div>
 </div>
 {% endfor %}
+<div>
+  <a href="/deleted-messages" class="btn btn-primary">See deleted messages</a>
+</div>
 {% endblock %}

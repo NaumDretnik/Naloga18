@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Deleted Messages{% endblock %}
+
+{% block vsebina %}
+{% for message in messages %}
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">{{ message.name }} ({{ message.email }}) <a href="/deleted-{{ message.key.id() }}" class="btn btn-primary">More</a></h4>
+    <p>{{ message.content }} | {{ message.timestamp }}</p>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} Message {{ message.key.id() }} {% endblock %}
+
+{% block vsebina %}
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">{{ message.name }} ({{ message.email }}) said at {{ message.timestamp }}:</h3>
+        <p class="card-text">{{ message.content }}</p>
+        <a href="/message-edit-{{ message.key.id() }}" class="btn btn-primary">Edit</a>
+        <a href="/message-delete-{{ message.key.id() }}" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+</div>
+{% endblock %}
